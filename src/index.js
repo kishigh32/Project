@@ -14,10 +14,18 @@ document.addEventListener("DOMContentLoaded", () => {
     let game = new Game(GAME_HEIGHT, GAME_WIDTH);
 
     game.ball(ctx);
+    game.hoop(ctx);
 
-    //var ball = new Image();
-    //var ball = document.getElementById("basketball.png");
-    //ball.src = "./assets/basketball.png";
-    //document.body.appendChild(ball);
-    //ctx.drawImage(ball, 250, 250);
+    let lastTime = 0;
+    function gameLoop(timestamp) {
+        let deltaTime = timestamp - lastTime;
+        lastTime = timestamp;
+
+        game.updateHoopHor(deltaTime);
+        game.hoop(ctx);
+
+        requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
 });
