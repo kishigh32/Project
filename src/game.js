@@ -12,10 +12,10 @@ export default class Game {
     
     ball(ctx) {
         const ball = new Image();
-        ball.src = "./assets/basketball1.png";
+        ball.src = "./assets/hoop.jpg";
         ball.onload = () => {
             // 475
-            ctx.drawImage(ball, 160, 270, 85, 85);
+            ctx.drawImage(ball, 160, 20, 85, 85);
         }
     }
 
