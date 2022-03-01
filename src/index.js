@@ -1,4 +1,6 @@
-import Game from "./game";
+import Ball from "./ball";
+import Hoop from "./hoop";
+import Input from "./input";
 
 document.addEventListener("DOMContentLoaded", () => {
     let canvas = document.getElementById("game-canvas");
@@ -11,21 +13,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const GAME_WIDTH = 400;
     const GAME_HEIGHT = 600;
 
-    let game = new Game(GAME_HEIGHT, GAME_WIDTH);
+    let hoop = new Hoop(GAME_HEIGHT, GAME_WIDTH);
+    let ball = new Ball();
+    new Input();
 
-    game.ball(ctx);
-    game.hoop(ctx);
+    ball.drawBall(ctx);
+    hoop.drawHoop(ctx);
 
     let lastTime = 0;
     function gameLoop(timestamp) {
         let deltaTime = timestamp - lastTime;
         lastTime = timestamp;
 
-        game.updateHoopHor(deltaTime);
-        game.hoop(ctx);
+        hoop.drawHoop(ctx);
+        hoop.updateHoop(deltaTime);
 
         requestAnimationFrame(gameLoop);
     }
 
-    gameLoop();
+    gameLoop(ctx, 10);
 });
