@@ -15,7 +15,7 @@ export default class Game {
         ball.src = "./assets/basketball1.png";
         ball.onload = () => {
             // 475
-            ctx.drawImage(ball, 160, 100, 85, 85);
+            ctx.drawImage(ball, 160, 270, 85, 85);
         }
     }
 
