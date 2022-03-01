@@ -61,4 +61,8 @@ table {
 #game-canvas {
   border: 1px solid black;
   margin-left: 20px;
+  position: absolute;
+  top: 50%;
+  left: 48%;
+  transform: translate(-50%, -50%);
 }
