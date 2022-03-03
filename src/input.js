@@ -9,11 +9,11 @@ export default class Input {
         document.addEventListener("keydown", event => {
             switch(event.keyCode) {
                 case 37: 
-                    alert("move left");
+                    ball.left();
                     break;
 
                 case 39: 
-                    alert("move right");
+                    ball.right();
                     break
 
                 case 32:
@@ -21,6 +21,7 @@ export default class Input {
                     if (!shouldHandleKeyDown) return;
                     shouldHandleKeyDown = false;
                     function gameLoop(timestamp) {
+                        // ctx.clearRect(0, 300, 400, 600);
                         let deltaTime = timestamp - lastTime;
                         lastTime = timestamp;
                         

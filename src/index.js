@@ -19,11 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let lastTime = 0;
     function gameLoop(timestamp) {
+        // ctx.clearRect(0, 200, GAME_WIDTH, GAME_HEIGHT);
         let deltaTime = timestamp - lastTime;
         lastTime = timestamp;
 
         hoop.drawHoop(ctx);
-       hoop.updateHoop(deltaTime);
+        hoop.updateHoop(deltaTime);
 
         requestAnimationFrame(gameLoop);
     }
