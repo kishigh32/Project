@@ -4,15 +4,18 @@ export default class Ball {
 
         this.position = {
             x: 157,
-            y: 475,
+            y: 510,
         }
 
+        this.xarrow = 0;
+        this.rot = 1;
         this.size = 86;
-        this.speed = -19;
+        this.speed = -21.5;      // -20.8
         this.xspeed = 0;
+        // this.yspeed = 0;
         this.yspeed = -(((this.speed**2) - (this.xspeed**2))**(0.5));
         // this.maxSpeed = 5;
-        this.gravity = 0.5;
+        this.gravity = 0.56;
         this.x = this.position.x;
         this.y = this.position.y;
     }
@@ -29,15 +32,41 @@ export default class Ball {
     drawBall(ctx) {
         const ball = new Image();
         ball.src = "./assets/ball.jpg";
-        
         ball.onload = () => {
             // 157, 475
-            ctx.clearRect(0, 300, 400, 300);
+            if (this.rot === -1) ctx.clearRect(0, 300, 400, 300);
+            //ctx.rotate(Math.PI / 2);
             ctx.drawImage(ball, this.position.x + this.xspeed, this.position.y + this.yspeed, this.size, this.size);
         }
+
+    }
+
+    drawArrow(ctx) {
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 47); // 203, 425
+        ctx.lineTo(this.position.x + 46, this.position.y - 20); // 203, 456   490
+        ctx.stroke();
+
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 47); // 203, 425
+        ctx.lineTo(this.position.x + 41, this.position.y - 35); // 203, 456
+        ctx.stroke();
+
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 47); // 203, 425
+        ctx.lineTo(this.position.x + 51, this.position.y - 35); // 203, 456
+        ctx.stroke();
     }
 
     shoot() {
+        // ctx.clearRect(0, 300, 400, 300);
+        this.rot = -1;
         this.position.y += this.yspeed;
         this.yspeed += this.gravity;
         this.position.x += this.xspeed;
@@ -48,22 +77,28 @@ export default class Ball {
         }
     }
 
-    left() {
-        if (this.xspeed >= -18.9) {
+    left(ctx) {
+        ctx.clearRect(150, 454, 150, 34.8);
+        if (this.xspeed >= -10.2) {
             this.xspeed -= 0.3;
+            this.xarrow -= 1;
             this.yspeed = -(((this.speed**2) - (this.xspeed**2))**(0.5));
         }
-        console.log(this.xspeed);
-        console.log(this.yspeed);
+        this.drawArrow(ctx);
+        // console.log(this.xspeed);
+        // console.log(this.yspeed);
     }
 
-    right() {
-        if (this.xspeed <= 18.9) {
+    right(ctx) {
+        ctx.clearRect(150, 454, 150, 34.8);
+        if (this.xspeed <= 10.2) {
             this.xspeed += 0.3;
+            this.xarrow += 1;
             this.yspeed = -(((this.speed**2) - (this.xspeed**2))**(0.5));
         }
-        console.log(this.xspeed);
-        console.log(this.yspeed);
+        this.drawArrow(ctx);
+        // console.log(this.xspeed);
+        // console.log(this.yspeed);
     }
 
     // shoot() {

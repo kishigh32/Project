@@ -39,4 +39,12 @@ export default class Hoop {
         }
         this.position.x += this.speed / deltaTime;
     }
+
+    xpos() {
+        return this.position.x;
+    }
+
+    ypos() {
+        return this.position.y;
+    }
 }

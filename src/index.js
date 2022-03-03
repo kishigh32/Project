@@ -15,7 +15,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let ball = new Ball();
     new Input(ball, ctx);
 
+    // function arrow() {
+    //     const arrow = new Image();
+    //     arrow.src = "./assets/arrow2.jpg"
+    //     arrow.onload = () => {
+    //         // ctx.clearRect(0, 300, 400, 300);
+    //         // 185, 405
+    //         ctx.drawImage(arrow, 185, 405, 35, 50);
+    //     }
+    // }
+
+    // ctx.rect(185, 350, 50, 50);
+    // ctx.fill();
     ball.drawBall(ctx);
+    // ctx.save();
+    // ctx.translate(202.5, 430);
+    // ctx.rotate(90 * Math.PI / 180);
+    // ctx.translate(-202.5, -430);
+    ball.drawArrow(ctx);
+    // ctx.rect(185, 350, 50, 50);
+    // ctx.fill();
+    // ctx.restore();
+    // let arrow = ball.drawArrow(ctx);
 
     let lastTime = 0;
     function gameLoop(timestamp) {
@@ -23,11 +44,26 @@ document.addEventListener("DOMContentLoaded", () => {
         let deltaTime = timestamp - lastTime;
         lastTime = timestamp;
 
+        // ball.drawBall(ctx);
+        // ball.drawArrow(ctx);
         hoop.drawHoop(ctx);
         hoop.updateHoop(deltaTime);
+
+
 
         requestAnimationFrame(gameLoop);
     }
 
     gameLoop();
+
+
+    
+    // const arrow = new Image();
+    // arrow.src = "./assets/arrow2.jpg"
+    // arrow.onload = () => {
+    //     // ctx.clearRect(0, 300, 400, 300);
+    //     // 185, 405
+    //     ctx.drawImage(arrow, 185, 405, 35, 50);
+    // }
+    // ctx.restore();
 });
