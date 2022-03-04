@@ -16,8 +16,10 @@ export default class Ball {
         this.yspeed = -(((this.speed**2) - (this.xspeed**2))**(0.5));
         // this.maxSpeed = 5;
         this.gravity = 0.56;
-        this.x = this.position.x;
-        this.y = this.position.y;
+        this.x = 0;
+        this.y = 0;
+        this.elas = 0.2
+        this.afterCollSize = 0;
     }
 
     // clearArc(context, x, y, radius) {
@@ -38,30 +40,34 @@ export default class Ball {
             //ctx.rotate(Math.PI / 2);
             ctx.drawImage(ball, this.position.x + this.xspeed, this.position.y + this.yspeed, this.size, this.size);
         }
-
+        this.x = this.position.x + this.xspeed;
+        this.y = this.position.y + this.yspeed;
     }
 
     drawArrow(ctx) {
+
+        // let y = ((729 - (this.xarrow**2))**(0.5));
         ctx.strokeStyle = 'blue';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 47); // 203, 425
+        ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 37); // 47
         ctx.lineTo(this.position.x + 46, this.position.y - 20); // 203, 456   490
         ctx.stroke();
 
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 47); // 203, 425
-        ctx.lineTo(this.position.x + 41, this.position.y - 35); // 203, 456
-        ctx.stroke();
+    //     ctx.strokeStyle = 'blue';
+    //     ctx.lineWidth = 1;
+    //     ctx.beginPath();
+    //     ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 47); // 203, 425
+    //     ctx.lineTo(this.position.x + 41, this.position.y - 35); // 203, 456
+    //     ctx.stroke();
 
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 47); // 203, 425
-        ctx.lineTo(this.position.x + 51, this.position.y - 35); // 203, 456
-        ctx.stroke();
+    //     ctx.strokeStyle = 'blue';
+    //     ctx.lineWidth = 1;
+    //     ctx.beginPath();
+    //     ctx.moveTo(this.position.x + 46 + this.xarrow, this.position.y - 47); // 203, 425
+    //     ctx.lineTo(this.position.x + 51, this.position.y - 35); // 203, 456
+    //     ctx.stroke();
+
     }
 
     shoot() {
@@ -72,7 +78,7 @@ export default class Ball {
         this.position.x += this.xspeed;
 
         if (this.yspeed < 0) {
-            this.size -= 0.8;
+            this.size -= 0.8 + this.afterCollSize;
             this.position.x += 0.5;
         }
     }
@@ -81,10 +87,13 @@ export default class Ball {
         ctx.clearRect(150, 454, 150, 34.8);
         if (this.xspeed >= -10.2) {
             this.xspeed -= 0.3;
-            this.xarrow -= 1;
+            this.xarrow -= 0.44; // 0.7
             this.yspeed = -(((this.speed**2) - (this.xspeed**2))**(0.5));
         }
         this.drawArrow(ctx);
+
+        // console.log(this.xarrow);
+
         // console.log(this.xspeed);
         // console.log(this.yspeed);
     }
@@ -93,24 +102,37 @@ export default class Ball {
         ctx.clearRect(150, 454, 150, 34.8);
         if (this.xspeed <= 10.2) {
             this.xspeed += 0.3;
-            this.xarrow += 1;
+            this.xarrow += 0.44; // 0.7
             this.yspeed = -(((this.speed**2) - (this.xspeed**2))**(0.5));
         }
         this.drawArrow(ctx);
+
+        // console.log(this.xarrow);
+
         // console.log(this.xspeed);
         // console.log(this.yspeed);
     }
 
-    // shoot() {
-    //     if (this.position.y < 80) {
-    //         this.speed = -this.speed;
-    //     }
-    //     this.position.y += this.speed;
+    speedy() {
+        return this.yspeed;
+    }
 
-    //     if (this.speed === -5) {
-    //         this.size -= 0.35;
-    //         this.position.x += 0.21;
-    //     }
-    // }
+    collisionSpeedy() {
+        this.yspeed -= this.yspeed * this.elas;
+        this.yspeed = -this.yspeed;
+        this.afterCollSize = -0.8;
+    }
+
+    xpos() {
+        return this.x;
+    }
+
+    ypos() {
+        return this.y;
+    }
+
+    ballSize() {
+        return this.size;
+    }
 
 }

@@ -7,6 +7,8 @@ export default class Hoop {
             y: 70,
         }
 
+        this.x = this.position.x + 111;
+        this.y = this.position.y + 143;
         this.speed = 20;
     }
 
@@ -18,12 +20,12 @@ export default class Hoop {
         
         side1.onload = () => {
             //tx.clearRect(0, 0, 400, 300); 
-            ctx.drawImage(side1, this.position.x + 112, this.position.y + 143, 5, 5);
+            ctx.drawImage(side1, this.position.x + 111, this.position.y + 143, 5, 5);
         }
         const side2 = new Image();
         side2.src = "./assets/side.jpg";
         side2.onload = () => {
-            ctx.drawImage(side2, this.position.x + 183, this.position.y + 143, 5, 5);
+            ctx.drawImage(side2, this.position.x + 184, this.position.y + 143, 5, 5);
         }
         board.onload = () => {
             ctx.clearRect(0, 0, 400, 300);
@@ -38,13 +40,16 @@ export default class Hoop {
             this.speed = -this.speed;
         }
         this.position.x += this.speed / deltaTime;
+
+        this.x = this.position.x + 111;
+        // this.y = this.position.y + 143;
     }
 
     xpos() {
-        return this.position.x;
+        return this.x;
     }
 
     ypos() {
-        return this.position.y;
+        return this.y;
     }
 }

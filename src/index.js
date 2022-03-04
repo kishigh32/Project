@@ -9,61 +9,83 @@ document.addEventListener("DOMContentLoaded", () => {
     const GAME_WIDTH = 400;
     const GAME_HEIGHT = 600;
 
+    let score = 0;
+
+    // let restart = false;
+
     //ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+    // let restart = false;
+
+    function start() {
+
+        // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        let restart = false;
+        score = 0;
+
+        let hoop = new Hoop(GAME_HEIGHT, GAME_WIDTH);
+        let ball = new Ball();
     
-    let hoop = new Hoop(GAME_HEIGHT, GAME_WIDTH);
-    let ball = new Ball();
-    new Input(ball, ctx);
-
-    // function arrow() {
-    //     const arrow = new Image();
-    //     arrow.src = "./assets/arrow2.jpg"
-    //     arrow.onload = () => {
-    //         // ctx.clearRect(0, 300, 400, 300);
-    //         // 185, 405
-    //         ctx.drawImage(arrow, 185, 405, 35, 50);
-    //     }
-    // }
-
-    // ctx.rect(185, 350, 50, 50);
-    // ctx.fill();
-    ball.drawBall(ctx);
-    // ctx.save();
-    // ctx.translate(202.5, 430);
-    // ctx.rotate(90 * Math.PI / 180);
-    // ctx.translate(-202.5, -430);
-    ball.drawArrow(ctx);
-    // ctx.rect(185, 350, 50, 50);
-    // ctx.fill();
-    // ctx.restore();
-    // let arrow = ball.drawArrow(ctx);
-
-    let lastTime = 0;
-    function gameLoop(timestamp) {
-        // ctx.clearRect(0, 200, GAME_WIDTH, GAME_HEIGHT);
-        let deltaTime = timestamp - lastTime;
-        lastTime = timestamp;
-
-        // ball.drawBall(ctx);
-        // ball.drawArrow(ctx);
-        hoop.drawHoop(ctx);
-        hoop.updateHoop(deltaTime);
+        // let hoop = new Hoop(GAME_HEIGHT, GAME_WIDTH);
+        // let ball = new Ball();
+        new Input(ball, hoop, ctx);
 
 
+        // ctx.rect(185, 350, 50, 50);
+        // ctx.fill();
+        ball.drawBall(ctx);
+        ball.drawArrow(ctx);
 
-        requestAnimationFrame(gameLoop);
+        // console.log(ball.this.size);
+
+        let lastTime = 0;
+        function gameLoop(timestamp) {
+            // ctx.clearRect(0, 200, GAME_WIDTH, GAME_HEIGHT);
+            let deltaTime = timestamp - lastTime;
+            lastTime = timestamp;
+
+            if (ball.ypos() > 600) {
+                restart = true;
+            }
+            // console.log(ball.ypos());
+            // ball.drawBall(ctx);
+            // ball.drawArrow(ctx);
+            hoop.drawHoop(ctx);
+            hoop.updateHoop(deltaTime);
+
+            if (!restart) {
+                requestAnimationFrame(gameLoop);
+            }
+            else {
+                ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+                start();
+                // ball.drawBall(ctx);
+            }
+
+            // console.log("hey");
+
+            // requestAnimationFrame(gameLoop);
+        }
+
+        // score = 1;
+
+        gameLoop();
+
+        // requestAnimationFrame(start);
     }
 
-    gameLoop();
+    start();
 
+    // function loop() {
+    //     if (score === 0) {
+    //         start();
+    //     }
+    //     // else {
+    //     //     console.log(score);
+    //     // }
+    //     // score = 0;
 
-    
-    // const arrow = new Image();
-    // arrow.src = "./assets/arrow2.jpg"
-    // arrow.onload = () => {
-    //     // ctx.clearRect(0, 300, 400, 300);
-    //     // 185, 405
-    //     ctx.drawImage(arrow, 185, 405, 35, 50);
+    //     requestAnimationFrame(loop);
     // }
-    // ctx.restore();
 });
