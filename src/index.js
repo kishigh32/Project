@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // ball.drawBall(ctx);
             // ball.drawArrow(ctx);
             hoop.drawHoop(ctx);
-            hoop.updateHoop(deltaTime);
+            // hoop.updateHoop(deltaTime);
 
             if (!restart) {
                 requestAnimationFrame(gameLoop);
